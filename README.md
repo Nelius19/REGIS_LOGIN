@@ -96,7 +96,79 @@
 	</div>
   </div>
   -->
-
 </form>
 </body>
 </html>
+
+/** Process.php file **/
+
+<?php
+	$servername = "localhost";
+	$username = "root";
+	$password = "";
+	$dbname = "gwdb";
+
+// CREATE CONNECTION
+	$conn = mysqli_connect($servername, $username, $password, $dbname);
+
+/* // CHECK CONNECTION
+	if (!$conn) {
+   		die("Connection failed: " .mysqli_connect_error());
+	}
+	echo "Connected successfully";
+*/
+
+/* //CREATE DATABASE 
+$sql = "CREATE DATABASE gwdb";
+if (mysqli_query($conn, $sql)) {
+    echo "Database created successfully";
+} else {
+    echo "Error creating database: " . mysqli_error($conn);
+}
+*/
+
+/* //SQL TO CREATE A TABLE 
+$sql = "CREATE TABLE Regtb (
+id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY, 
+FirstName VARCHAR(30) NOT NULL,
+LastName VARCHAR(30) NOT NULL,
+Email VARCHAR(50) NOT NULL,
+Username VARCHAR(30) NOT NULL,
+Password VARCHAR(20),
+Gender Char(1),
+Birth_Date DATE,
+SecretWord VARCHAR(20) NOT NULL
+)"; 
+if (mysqli_query($conn, $sql)) {
+    echo "Table Regtb created successfully";
+} else {
+    echo "Error creating table: " . mysqli_error($conn);
+} */
+
+//TO INSERT DATA INTO MYSQL
+if(isset($_POST['signup-submit'])){
+		$firstname = $_POST['firstname'];
+		$lastname  = $_POST['lastname'];
+		$email     = $_POST['email'];
+		$username  = $_POST['username'];
+		$password  = $_POST['password'];
+		$gender    = $_POST['gender'];
+		$dob       = $_POST['dob'];
+		$secretword= $_POST['secretword'];
+
+		//var_dump($_POST);
+
+	$sql = "INSERT INTO Regtb (FirstName, LastName, Email, Username, Password, Gender, Birth_Date, SecretWord)
+		VALUES('$firstname', '$lastname', '$email', '$username', '$password', '$gender', '$dob', '$secretword')";
+
+	if(mysqli_query($conn, $sql)) 
+	{
+    	echo "New record created successfully";
+	} 
+	else 
+	{
+    	echo "Error: " . $sql . "<br>" .mysqli_error($conn);
+	}
+mysqli_close($conn);
+}
+?>
