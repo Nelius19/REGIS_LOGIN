@@ -172,3 +172,46 @@ if(isset($_POST['signup-submit'])){
 mysqli_close($conn);
 }
 ?>
+
+/*** Login.php file ***/
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Login Form</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+	<script src="https://use.fontawesome.com/releases/v5.6.1/js/all.js"></script>
+
+	<link rel="stylesheet" href="formstyle.css">
+</head>
+<body>
+<form>
+	<div class="container">
+	  <form class="main-form" action="loginprocess.php" method="POST">
+	    <h2>Login</h2>
+ 	<!-- Username -->
+  	    <div class="form-row">
+   		  <div class="form-group col-sm-12">
+            <label for="username">Username</label>
+            <input type="text" name="uname" class="form-control" required="true" placeholder="Enter username" />
+          </div>
+        </div>
+    <!-- Password -->
+  		<div class="form-row">
+    	  <div class="form-group col-sm-12">
+      		<label for="password">Password</label>
+      		<input type="password" name="pword" class="form-control" required="true" placeholder="Enter password" />
+    	  </div>
+  		</div>
+	<!-- Login & SignUp buttons -->
+		<button type="submit" class="btn btn-outline-success" name="login-submit">Login</button>
+  		<a href="regform.html" class="btn btn-outline-primary">Sign Up</a>
+    </div>
+</form>
+</body>
+</html>
