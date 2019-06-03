@@ -1,8 +1,8 @@
-# REGIS_LOGIN
+/****** Regisform.html *****/
+
 <!DOCTYPE html>
 <html>
 <head>
-  /** A Regform.html file**/
 	<title>Registration Form</title>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -10,26 +10,24 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-	<script src="https://use.fontawesome.com/releases/v5.6.1/js/all.js"></script>
+	<script src="https://use.fontawesome.com/releases/v5.7.0/js/all.js"></script>
 
-	<link rel="stylesheet" href="formstyle.css">
+	<link rel="stylesheet" href="regformstyle.css">
 </head>
-
 <body>
-/** FOR REGISTRATION **/
-<div class="container-fliud">
-<form class="main-form" action="processreg.php" method="POST">
-	<h2>Sign Up</h2>
-<!-- First name -->
+<div class="container-fluid">
+<form action="regformprocess.php" method="POST">
+	<h3>Sign Up</h3>
+<!-- First Name -->
   <div class="form-row">
 	<div class="form-group col-md-6">
-	  <label for="lastname">First Name</label>
-	  <input type="text" name="firstname" class="form-control" required="true" placeholder="Enter first name" />
+		<label for="firstname">First Name</label>
+		<input type="text" name="firstname" class="form-control" required="true" placeholder="Enter first name"/>
 	</div>
 <!-- Last Name -->
 	<div class="form-group col-md-6">
-	  <label for="lastname">Last Name</label>
-  	  <input type="text" name="lastname" class="form-control" required="true" placeholder="Enter last name" />
+		<label for="Lastname">Last Name</label>
+		<input type="text" name="lastname" class="form-control" required="true" placeholder="Enter last name"/>
 	</div>
   </div>
 <!-- Email -->
@@ -72,7 +70,7 @@
   <div class="form-row">
   	<label for="dob" class="col-sm-4 col-form-label">Date of Birth:</label>
   	<div class="form-group col-md-6">
-  	  <input type="date" name="dob" class="form-control">
+  	  <input type="date" name="dob" class="form-control" required="true">
   	</div>
   </div>
 <!-- Secret word -->
@@ -82,26 +80,15 @@
       <input type="text" name="secretword" class="form-control" required="true" placeholder="Enter secret word" />
     </div>
   </div>
-
 <!-- Submit and Reset buttons -->
-  <input type="submit" name="signup-submit" class="btn btn-outline-success">
+  <button type="submit" class="btn btn-outline-success" name="signup-submit">SIGNUP</button>
   <a href="loginform.html" class="btn btn-outline-primary">Login</a>
-
-<!-- <input class="btn btn-outline-primary" type="reset" value="Reset"> -->
-  <!--
-  <div class="form-row">
-  	<div class="form-group btn-inline col-sm-1 ">
-	  <button type="submit" class="btn btn-outline-success">Submit</button>
-	  <input class="btn btn-outline-primary" type="reset" value="Reset">
-	</div>
-  </div>
-  -->
 </form>
+</div>
 </body>
 </html>
 
-/** Process.php file **/
-
+/******** Regformprocess.php ********/
 <?php
 	$servername = "localhost";
 	$username = "root";
@@ -111,12 +98,11 @@
 // CREATE CONNECTION
 	$conn = mysqli_connect($servername, $username, $password, $dbname);
 
-/* // CHECK CONNECTION
+// CHECK CONNECTION
 	if (!$conn) {
    		die("Connection failed: " .mysqli_connect_error());
 	}
 	echo "Connected successfully";
-*/
 
 /* //CREATE DATABASE 
 $sql = "CREATE DATABASE gwdb";
@@ -145,16 +131,16 @@ if (mysqli_query($conn, $sql)) {
     echo "Error creating table: " . mysqli_error($conn);
 } */
 
-//TO INSERT DATA INTO MYSQL
+// TO INSERT DATA INTO MYSQL
 if(isset($_POST['signup-submit'])){
-		$firstname = $_POST['firstname'];
-		$lastname  = $_POST['lastname'];
-		$email     = $_POST['email'];
-		$username  = $_POST['username'];
-		$password  = $_POST['password'];
-		$gender    = $_POST['gender'];
-		$dob       = $_POST['dob'];
-		$secretword= $_POST['secretword'];
+	$firstname = $_POST['firstname'];
+	$lastname  = $_POST['lastname'];
+	$email     = $_POST['email'];
+	$username  = $_POST['username'];
+	$password  = $_POST['password'];
+	$gender    = $_POST['gender'];
+	$dob       = $_POST['dob'];
+	$secretword= $_POST['secretword'];
 
 		//var_dump($_POST);
 
@@ -173,8 +159,33 @@ mysqli_close($conn);
 }
 ?>
 
-/*** Login.php file ***/
+/**** Regformstyle.css *****/
+/* REGISTRATION FORM CSS */
+body{
+	background-image: url(img/img5.jpg);
+	width: 100%;
+	height: 100vh;
+	color: #fff;
+	font-family: fantasy;
+	}
+h3{
+	text-align: center;
+	padding-bottom: 1rem;
+	}
+.container-fluid{
+	text-transform: uppercase;
+	text-shadow: .1rem .1rem .5rem black;
+	font-size: .8rem;
+	width: 30rem;
+	margin-top: 1vh; /* margin-top: 2vh; */
+	border: 0rem solid #fff; /* .1rem */
+	padding: 1.8rem;
+	-webkit-box-shadow: 1px 4px 26px 11px rgba(0,0,0,0.75);
+	-moz-box-shadow: 1px 4px 26px 11px rgba(0,0,0,0.75);
+	box-shadow: 1px 4px 26px 11px rgba(0,0,0,0.75);
+	}
 
+/**** Loginform.html ****/
 <!DOCTYPE html>
 <html>
 <head>
@@ -185,33 +196,100 @@ mysqli_close($conn);
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-	<script src="https://use.fontawesome.com/releases/v5.6.1/js/all.js"></script>
+	<script src="https://use.fontawesome.com/releases/v5.7.0/js/all.js"></script>
 
-	<link rel="stylesheet" href="formstyle.css">
+	<link rel="stylesheet" href="loginformstyle.css">
 </head>
 <body>
-<form>
-	<div class="container">
-	  <form class="main-form" action="loginprocess.php" method="POST">
-	    <h2>Login</h2>
+<div class="container">
+<form action="loginformprocess.php" method="POST">
+	<h3>Login</h3>
  	<!-- Username -->
-  	    <div class="form-row">
-   		  <div class="form-group col-sm-12">
-            <label for="username">Username</label>
-            <input type="text" name="uname" class="form-control" required="true" placeholder="Enter username" />
-          </div>
+  	<div class="form-row">
+   		<div class="form-group col-sm-12">
+          <label for="username">Username</label>
+          <i class="fas fa-user"></i>
+          <input type="text" name="uname" class="form-control" required="true" placeholder="Enter username" />
         </div>
-    <!-- Password -->
-  		<div class="form-row">
-    	  <div class="form-group col-sm-12">
-      		<label for="password">Password</label>
-      		<input type="password" name="pword" class="form-control" required="true" placeholder="Enter password" />
-    	  </div>
-  		</div>
-	<!-- Login & SignUp buttons -->
-		<button type="submit" class="btn btn-outline-success" name="login-submit">Login</button>
-  		<a href="regform.html" class="btn btn-outline-primary">Sign Up</a>
     </div>
+    <!-- Password -->
+  	<div class="form-row">
+     	<div class="form-group col-sm-12">
+      	  <label for="password">Password</label>
+      	  <i class="fas fa-lock"></i>
+      	  <input type="password" name="pword" class="form-control" required="true" placeholder="Enter password" />
+    	</div>
+  	</div>
+	<!-- Login & SignUp buttons -->
+		<button type="submit" class="btn btn-outline-success" name="login-submit">LOGIN</button>
+  		<a href="regform.html" class="btn btn-outline-primary">Sign Up</a>
 </form>
+</div>
 </body>
 </html>
+
+
+/**** Loginformprocess.php ****/
+<?php
+	$servername = "localhost";
+	$username = "root";
+	$password = "";
+	$dbname = "gwdb";
+
+// CREATE CONNECTION
+	$conn = mysqli_connect($servername, $username, $password, $dbname);
+
+/*// CHECK CONNECTION 
+	if (!$conn) {
+   		die("Connection failed: " .mysqli_connect_error());
+	}
+	echo "Connected successfully";
+*/
+
+if(isset($_POST['login-submit'])) {
+	$name = $_POST['uname'];
+	$pass = $_POST['pword'];
+
+	$sql = "SELECT * FROM regtb WHERE Username='$name'&& Password='$pass'";
+
+	$result = mysqli_query($conn, $sql);
+	if(mysqli_num_rows($result) > 0)
+	{
+		header('location:dashboard.php');
+	}
+	else{
+		header('location:loginform.html');
+	}
+}
+?>
+
+/***** Dashboard.php ******/ //To display the sessions vairable
+<?php
+	echo "Welcome";
+?>
+
+
+/* LOGIN FORM CSS */ //Loinform.css
+body{
+	background-image: url(img/img5.jpg);
+	width: 100%;
+	height: 100vh;
+	color: #fff;
+	font-family: fantasy;
+	}
+h3{
+	text-align: center;
+	padding-bottom: 1rem;
+	}
+.container{
+	text-transform: uppercase;
+	text-shadow: .1rem .1rem .5rem black;
+	font-size: 1rem;
+	width: 31rem;
+	margin-top: 15vh; /* margin-top: 2vh; */
+	border: 0rem solid #fff; /* .1rem */
+	padding: 4rem;
+	-webkit-box-shadow: 1px 4px 26px 11px rgba(0,0,0,0.75);
+	-moz-box-shadow: 1px 4px 26px 11px rgba(0,0,0,0.75);
+	box-shadow: 1px 4px 26px 11px rgba(0,0,0,0.75);
+	}
