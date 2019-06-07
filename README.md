@@ -263,12 +263,6 @@ if(isset($_POST['login-submit'])) {
 }
 ?>
 
-/***** Dashboard.php ******/ //To display the sessions vairable
-<?php
-	echo "Welcome";
-?>
-
-
 /* LOGIN FORM CSS */ //Loinform.css
 body{
 	background-image: url(img/img5.jpg);
@@ -292,4 +286,244 @@ h3{
 	-webkit-box-shadow: 1px 4px 26px 11px rgba(0,0,0,0.75);
 	-moz-box-shadow: 1px 4px 26px 11px rgba(0,0,0,0.75);
 	box-shadow: 1px 4px 26px 11px rgba(0,0,0,0.75);
+	}
+
+
+/***** Dashboard.php ******/
+<?php
+	session_start();
+?>
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+	<title>Welcome</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+	<script src="https://use.fontawesome.com/releases/v5.7.0/js/all.js"></script>
+
+	<link rel="stylesheet" type="text/css" href="dboard.css">
+	
+</head>
+<body>
+<div class="container">
+<form action="dboard.php" method="POST">  <!-- use if statement in the code to display... -->
+<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+	<ul class="navbar-nav">
+		<li class="nav-item">
+			<a class="nav-name">Dashboard Order</a>
+		</li>
+	</ul>
+	<ul class="navbar-nav ml-auto">
+		<?php
+			echo $_SESSION['user']; 
+		?>
+		<button type="submit" name="logout-submit" class="btn btn-warning btn-md">
+			<i class="fas fa-sign-out-alt"></i>Logout
+		</button>
+		</li>
+	</ul>
+</nav>
+	<!-- For Large Pizza -->	<!-- class="inline col-md-5" align the input field on top of each other. -->
+	<div class="form-row">
+		<h3>Quantity</h3>
+		<div class="form-group col-md-10">
+		  <label for="pizzalarge" class="inline col-md-6">Large Pizza (ksh. 1,000):</label> 
+		  <input type="number" name="LPNumber" min="0" max="1000">
+		</div>
+	</div>
+
+	<!-- For Medium Pizza -->
+	<div class="form-row">
+		<div class="form-group col-md-10">
+		  <label for="pizzamedium" class="inline col-md-6">Medium Pizza (ksh. 700):</label>
+		  <input type="number" name="MPNumber" min="0" max="1000">
+		</div>
+	</div>
+
+	<!-- For Small Pizza -->
+	<div class="form-row">
+		<div class="form-group col-md-10">
+		  <label for="pizzasmall" class="inline col-md-6">Small Pizza (ksh. 400):</label>
+		  <input type="number" name="SPNumber" min="0" max="1000">
+		</div>
+	</div>
+
+	<!-- Extra Topping area -->
+		<h3><u>Extra Toppings</u></h3>
+		<input type="radio" name="topping" value="meat">Meat Toppings (ksh. 150)<br/>
+		<input type="radio" name="topping" value="vegetable">Vegetable Toppings (ksh. 100)<br/>
+		<input type="radio" name="topping" value="none">No Toppings (ksh. 0)
+
+	<!-- Donation part -->
+	<div class="button1 form-row">
+   		<div class="form-group col-md-11">
+			<label for="donation" class="inline col-md-4">Feed a Hungry Child Today?</label><br/>
+			<input type="checkbox" name="donn" value="donate">Donate ksh 200
+		</div>
+	</div>
+
+	<!-- Submit Order and Reset buttons -->
+	<div class="button2 form-row">
+	    <div class="form-group col-md-11">
+	    	<button type="submit" class="btn btn-outline-primary" name="order-submit">ORDER</button>
+			<button type="reset" class="btn btn-outline-success" name="reset">RESET</button>
+	    </div>
+	</div>
+</form>
+</div>
+</body>
+</html>
+
+/*** dboard.php ***/
+<?php
+	session_start();
+
+if(isset($_POST['logout-submit'])) 
+	{
+		unset($_SESSION['user']);
+		unset($_SESSION['access']);
+		session_destroy();
+		header("location: loginform.html");
+	}
+
+// Variable and values
+	$largepizza = 1000;
+	$mediumpizza = 700;
+	$smallpizza = 400;
+	$meattopping = 150;
+	$vegetopping = 100;
+	$nonetopping = 0;
+	$donors = 200;
+	$total1 = "0";
+	$total2 = "0";
+	$total3 = "0";
+	$final  = "0";
+	$final1 = "0";
+	$final2 = "0";
+	$final3 = "0";
+
+
+if(isset($_POST['order-submit']))
+{
+	$LPNumber = $_POST['LPNumber'];
+	$MPNumber = $_POST['MPNumber'];
+	$SPNumber = $_POST['SPNumber'];
+	$topping  = $_POST['topping'];
+	$donation = $_POST['donn'];
+
+	//For Order
+	if ($LPNumber > 0 || $MPNumber > 0 || $SPNumber > 0)
+	{
+		echo "Thank You For Your Order.<br/><br/>";
+		echo "Order Details:<br/>";
+
+		$total1 = $LPNumber * $largepizza;
+		echo "$LPNumber x Large pizza = $total1 <br/>";
+		$total2 = $MPNumber * $mediumpizza;
+		echo "$MPNumber x Medium pizza = $total2 <br/>";
+		$total3 = $SPNumber * $smallpizza;
+		echo "$SPNumber x Small pizza = $total3 <br/>";
+	
+		$total = $LPNumber + $MPNumber + $SPNumber;
+
+		echo "<br/>Extra Toppings";
+	}
+	//For Toppings
+	if ($topping == "meat") 
+	{
+		echo "<br/>Meat Topping<br/>";
+		$final1 = $total * $meattopping;
+		echo "$total x Extra Toppings = $final1<br/><br/>";
+	}
+	elseif ($topping == "vegetable") 
+	{
+		echo "<br/>Vegetable Topping<br/>";
+		$final2 = $total * $vegetopping;
+		echo "$total x Extra Toppings = $final2<br/><br/>";
+	}
+	elseif ($topping == "none") 
+	{
+		echo "<br/>No Topping<br/>";
+		$final3 = $total * $nonetopping;
+		echo "$total x Extra Toppings = $final3<br/><br/>";
+	}
+	else
+		echo "Please select a topping";
+
+	///For Donation
+	if ($donation == "donate") 
+	{
+		echo "Bless your kind soul for your 200 ksh donation!<br/>";
+		$final = $total1 + $total2 + $total3 + $final1 + $final2 + $final3 + $donors;
+		echo "Total is: $final";
+	}
+
+	elseif ($donation != "donate") 
+	{
+		$final = $total1 + $total2 + $total3 + $final1 + $final2 + $final3;
+		echo "Total is: $final";
+	}
+	else
+		echo "error";
+}
+?>
+
+/**dboard.css**/
+
+.navbar{
+	font-weight: 700;
+	text-shadow: 2px 2px 4px #000000;
+	text-transform: uppercase;
+	height: 2rem;
+	background: rgba(0, 0, 0, .6)!important;
+	}
+.navbar-dark{
+	color: gold;
+	}
+.btn-warning{
+	text-transform: uppercase;
+	text-shadow: 2px 2px 4px #000000;
+	font-weight: 500;
+	color: white;
+	border: 0rem;
+	margin-left: 2rem; /* Will increase the space between the name and logout button in the navbar */
+	padding-top: .1rem;
+	padding-bottom: .1rem;
+	padding-left: .1rem;
+	padding: right: .1rem;
+	-webkit-animation: mymove 15s infinite;
+	animation: mymove 15s infinite;s
+	}
+	@-webkit-keyframes mymove {
+  	from {background-color: gold;}
+  	to {background-color: green;}
+  	}
+/* Standard syntax */
+	@keyframes mymove {
+  	from {background-color: yellow;}
+  	to {background-color: green;}
+	}
+h3{
+	font-family: serif;
+	padding-left: 15rem;
+	}
+.container{
+	font-weight: 500;
+	text-transform: uppercase;
+	margin-top: 8vh;
+	width: 50rem;
+	color: #000000;
+	border: .1rem solid #73AD21;
+	padding: 1.2rem;
+	}
+.button1{
+	text-align: center;
+	}
+.button2{
+	margin-top: 1rem; /* Will put space between the button */
+	padding-right: 1rem;
 	}
